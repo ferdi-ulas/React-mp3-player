@@ -15,7 +15,7 @@ const Player = () => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
     const tracks = [
-        { title: "Avril Lavigne - When You're Gone", src: "../public/Avril Lavigne - When Youre Gone (Official Video).mp3" },
+        { title: "Immortal", src: "../public/Immortal.mp3" },
         { title: "Coolio - Gangstas Paradise (feat. L.V.)", src: "../public/Coolio - Gangstas Paradise (feat. L.V.) [Official Music Video].mp3" },
         { title: "Evanescence - Bring Me To Life", src: "../public/Evanescence - Bring Me To Life (Official Music Video).mp3" },
     ];
