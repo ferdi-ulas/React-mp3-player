@@ -37,7 +37,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="social-link"
                 >
-                    <FaLinkedin /> LinkedIn
+                    <FaLinkedin /> Linkedin
                 </a>
             </footer>
         </div>
