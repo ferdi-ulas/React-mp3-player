@@ -3,7 +3,6 @@ import { GrPlayFill } from "react-icons/gr";
 import { TbPlayerStopFilled } from "react-icons/tb";
 import { IoPlayBack } from "react-icons/io5";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
-import Footer from "./Footer";
 import "../css/Player.css";
 
 const Player = () => {
