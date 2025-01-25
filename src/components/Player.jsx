@@ -14,7 +14,7 @@ const Player = () => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
     const tracks = [
-        { title: "Immortal", src: "../public/Immortal.mp3" },
+        { title: "Avril Lavigne - When You're Gone", src: "../public/Avril Lavigne - When Youre Gone (Official Video).mp3" },
         { title: "Coolio - Gangstas Paradise (feat. L.V.)", src: "../public/Coolio - Gangstas Paradise (feat. L.V.) [Official Music Video].mp3" },
         { title: "Evanescence - Bring Me To Life", src: "../public/Evanescence - Bring Me To Life (Official Music Video).mp3" },
     ];
@@ -24,36 +24,48 @@ const Player = () => {
 
     const togglePlay = () => {
         const audioElement = audioRef.current;
-        isPlaying ? audioElement.pause() : audioElement.play();
+        if (isPlaying) {
+            audioElement.pause();
+        } else {
+            audioElement.play();
+        }
         setIsPlaying(!isPlaying);
     };
 
     const onTimeUpdate = () => {
         if (!dragging) {
             const current = audioRef.current.currentTime;
-            setCurrentTime(current);
-            setProgress((current / duration) * 100);
+            if (isFinite(current)) {
+                setCurrentTime(current);
+                setProgress((current / duration) * 100);
+            }
         }
     };
 
     const onProgressClick = (e) => {
         const clickPosition = (e.clientX - progressBarRef.current.getBoundingClientRect().left) / progressBarRef.current.offsetWidth;
         const newTime = clickPosition * duration;
-        audioRef.current.currentTime = newTime;
-        setProgress(clickPosition * 100);
+        if (isFinite(newTime)) {
+            audioRef.current.currentTime = newTime;
+            setProgress(clickPosition * 100);
+        }
     };
 
     const onProgressDragStart = () => setDragging(true);
 
     const onProgressDragEnd = () => {
         setDragging(false);
-        audioRef.current.currentTime = (progress / 100) * duration;
+        const newTime = (progress / 100) * duration;
+        if (isFinite(newTime)) {
+            audioRef.current.currentTime = newTime;
+        }
     };
 
     const onProgressDrag = (e) => {
         if (dragging) {
             const clickPosition = (e.clientX - progressBarRef.current.getBoundingClientRect().left) / progressBarRef.current.offsetWidth;
-            setProgress(Math.min(Math.max(clickPosition * 100, 0), 100));
+            const newProgress = Math.min(Math.max(clickPosition * 100, 0), 100);
+            setProgress(newProgress);
         }
     };
 
@@ -85,7 +97,11 @@ const Player = () => {
 
     useEffect(() => {
         const audioElement = audioRef.current;
-        const updateDuration = () => setDuration(audioElement.duration);
+        const updateDuration = () => {
+            if (isFinite(audioElement.duration)) {
+                setDuration(audioElement.duration);
+            }
+        };
         audioElement.addEventListener("timeupdate", onTimeUpdate);
         audioElement.addEventListener("loadedmetadata", updateDuration);
 
